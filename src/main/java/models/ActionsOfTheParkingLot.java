@@ -29,13 +29,13 @@ public class ActionsOfTheParkingLot {
         updateListsAboutLeaving(vehicle, someAvailableSpace);
     }
 
-    private void updatingVehicleAndParkingSpaceAboutLeaving(Vehicle vehicle, ParkingSpace spaceOfTheCar){
+    private static void updatingVehicleAndParkingSpaceAboutLeaving(Vehicle vehicle, ParkingSpace spaceOfTheCar){
         spaceOfTheCar.setCarInSpace(null);
         spaceOfTheCar.setTaken(false);
         vehicle.setParkingSpaceId(0);
     }
 
-    private void updateListsAboutLeaving(Vehicle vehicle, ParkingSpace spaceOfTheCar){
+    private static void updateListsAboutLeaving(Vehicle vehicle, ParkingSpace spaceOfTheCar){
         ParkingLot.getInstance().getOccupiedParkingSpaces().get(vehicle.getType()).remove(vehicle.getNumber());
         ParkingLot.getInstance().getAvailableParkingSpaces().get(vehicle.getType()).put(spaceOfTheCar.getId(), spaceOfTheCar);
     }
