@@ -59,6 +59,8 @@ public class ParkingLot {
             availableParkingSpaces.get(vehicle.getType()).remove(someAvailablePlace.getKey());
             vehicle.setParkingSpaceId(someAvailablePlace.getKey());
             occupiedParkingSpaces.get(vehicle.getType()).put(vehicle.getNumber(), someAvailablePlace.getValue());
+            someAvailablePlace.getValue().setTaken(true);
+            someAvailablePlace.getValue().setCarInSpace(vehicle.getNumber());
             vehicle.setEnterTime(LocalTime.now());
             System.out.println("The vehicle " + vehicle.getNumber() + " park good in park number " + occupiedParkingSpaces.get(vehicle.getType()).get(vehicle.getNumber()).getId());
             return true;
@@ -72,10 +74,27 @@ public class ParkingLot {
         ParkingSpace spaceOfTheCar = occupiedParkingSpaces.get(vehicle.getType()).get(vehicle.getNumber());
         occupiedParkingSpaces.get(vehicle.getType()).remove(vehicle.getNumber());
         availableParkingSpaces.get(vehicle.getType()).put(spaceOfTheCar.getId(), spaceOfTheCar);
+        spaceOfTheCar.setCarInSpace(null);
+        spaceOfTheCar.setTaken(false);
+        vehicle.setParkingSpaceId(0);
         money += vehicle.getPaymentMethod().calculatePayment(calculateTime(vehicle.getEnterTime()));
+        System.out.println("The car number " + vehicle.getNumber() + " leaving the park. The amount of money right now is " + getMoney());
     }
 
     public static double calculateTime(LocalTime enterTime){
         return MINUTES.between(enterTime, LocalTime.now()) / 60.0;
     }
+
+    public HashMap<String, HashMap<Integer, ParkingSpace>> getAvailableParkingSpaces() {
+        return availableParkingSpaces;
+    }
+
+    public HashMap<String, HashMap<String, ParkingSpace>> getOccupiedParkingSpaces() {
+        return occupiedParkingSpaces;
+    }
+
+    public double getMoney() {
+        return money;
+    }
+
 }
