@@ -1,4 +1,4 @@
 package parkingSpaces;
 
-abstract class ParkingSpace {
+public abstract class ParkingSpace {
 }
