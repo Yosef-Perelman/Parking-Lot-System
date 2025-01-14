@@ -1,4 +1,4 @@
-package models;
+package parkingSpaces;
 
 abstract class ParkingSpace {
 }

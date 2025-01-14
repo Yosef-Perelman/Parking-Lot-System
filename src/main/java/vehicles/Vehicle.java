@@ -1,4 +1,4 @@
-package models;
+package vehicles;
 
 abstract class Vehicle {
 }
