@@ -13,6 +13,7 @@ import java.util.Map;
 public class ParkingLot {
 
     private static ParkingLot parkingLot = null;
+    private final static ActionsOfTheParkingLot actions = new ActionsOfTheParkingLot();
 
     // Two maps - one for the available spaces and one for the occupied. Every type of parking space has its own list.
     // The available map looks like this - <type of parking space, map<id of a parking space, object of parking space>>.
@@ -42,7 +43,7 @@ public class ParkingLot {
         return parkingLot;
     }
 
-    // Initializes parking lot. Creates lists of parking spaces.
+    // Initializes parking lot. Creates lists of available and occupied parking spaces.
     private void initParkingLot(){
         availableParkingSpaces.put("Car", new HashMap<>());
         availableParkingSpaces.put("Motorcycle", new HashMap<>());
@@ -65,61 +66,35 @@ public class ParkingLot {
     }
 
 
-    // Methods for entering and leaving the parking lot.
+    // *** Methods for entering and leaving the parking lot *** //
+
     public synchronized boolean enter(Vehicle vehicle) {
-        // If their available space get it from the list, and updating the lists,
-        // the car and the parking space in different methods.
         if (!availableParkingSpaces.get(vehicle.getType()).isEmpty()) {
             Map.Entry<Integer, ParkingSpace> someAvailablePlace = availableParkingSpaces.get(vehicle.getType()).entrySet().iterator().next();
-            updateListsOfEntering(vehicle, someAvailablePlace);
-            updateEnteringInVehicleAndParkingSpace(vehicle, someAvailablePlace);
+            actions.enter(vehicle, someAvailablePlace.getKey(), someAvailablePlace.getValue());
             System.out.println("The " + vehicle.getType() + " with number " + vehicle.getNumber() + " park good in park number " + occupiedParkingSpaces.get(vehicle.getType()).get(vehicle.getNumber()).getId());
             return true;
-        // Otherwise
         } else {
             System.out.println("Theres no more spaces for " + vehicle.getType() + "s. Try again later.");
             return false;
         }
     }
 
-    private void updateEnteringInVehicleAndParkingSpace(Vehicle vehicle, Map.Entry<Integer, ParkingSpace> someAvailablePlace){
-        someAvailablePlace.getValue().setTaken(true);
-        someAvailablePlace.getValue().setCarInSpace(vehicle.getNumber());
-        vehicle.setEnterTime(LocalTime.now());
-        vehicle.setParkingSpaceId(someAvailablePlace.getKey());
-    }
-
-    private void updateListsOfEntering(Vehicle vehicle, Map.Entry<Integer, ParkingSpace> someAvailablePlace){
-        availableParkingSpaces.get(vehicle.getType()).remove(someAvailablePlace.getKey());
-        occupiedParkingSpaces.get(vehicle.getType()).put(vehicle.getNumber(), someAvailablePlace.getValue());
-    }
-
     public synchronized void leave(Vehicle vehicle){
         ParkingSpace spaceOfTheCar = occupiedParkingSpaces.get(vehicle.getType()).get(vehicle.getNumber());
-        // Updating the lists, the car and the parking space in different methods.
-        updateListsOfLeaving(vehicle, spaceOfTheCar);
-        updateLeavingInVehicleAndParkingSpace(vehicle, spaceOfTheCar);
+        actions.leave(vehicle, spaceOfTheCar);
         money += vehicle.getPaymentMethod().calculatePayment(calculateTime(vehicle.getEnterTime()));
         System.out.println("The " + vehicle.getType() + " with number " + vehicle.getNumber() + " leaving the park. The amount of money right now is " + getMoney());
     }
 
-    private void updateLeavingInVehicleAndParkingSpace(Vehicle vehicle, ParkingSpace spaceOfTheCar){
-        spaceOfTheCar.setCarInSpace(null);
-        spaceOfTheCar.setTaken(false);
-        vehicle.setParkingSpaceId(0);
-    }
-
-    private void updateListsOfLeaving(Vehicle vehicle, ParkingSpace spaceOfTheCar){
-        occupiedParkingSpaces.get(vehicle.getType()).remove(vehicle.getNumber());
-        availableParkingSpaces.get(vehicle.getType()).put(spaceOfTheCar.getId(), spaceOfTheCar);
-    }
 
     public static double calculateTime(LocalTime enterTime){
         return MINUTES.between(enterTime, LocalTime.now()) / 60.0;
     }
 
 
-    // Getters
+    // *** Getters ***
+
     public HashMap<String, HashMap<Integer, ParkingSpace>> getAvailableParkingSpaces() {
         return availableParkingSpaces;
     }
@@ -128,8 +103,6 @@ public class ParkingLot {
         return occupiedParkingSpaces;
     }
 
-    public double getMoney() {
-        return money;
-    }
+    public double getMoney() { return money; }
 
 }
