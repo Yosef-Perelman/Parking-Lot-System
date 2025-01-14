@@ -15,9 +15,9 @@ public class Main {
         Vehicle car4 = vehicleFactory.createVehicle("Car", "12345438");
         Vehicle car5 = vehicleFactory.createVehicle("Car", "1233678");
 
-        Vehicle motorcycle = vehicleFactory.createVehicle("Motorcycle", "12345678");
+        Vehicle motorcycle = vehicleFactory.createVehicle("Motorcycle", "1234");
 
-        Vehicle truck = vehicleFactory.createVehicle("Truck", "12345678");
+        Vehicle truck = vehicleFactory.createVehicle("Truck", "178");
 
         parkingLot.enter(car1);
         parkingLot.enter(car2);
