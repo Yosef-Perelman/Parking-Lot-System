@@ -9,14 +9,12 @@ public class Main {
         ParkingLot parkingLot = ParkingLot.getInstance();
         VehicleFactory vehicleFactory = new VehicleFactory();
 
-        Vehicle car1 = vehicleFactory.createVehicle("Car", "12345678");
-        Vehicle car2 = vehicleFactory.createVehicle("Car", "12345677");
-        Vehicle car3 = vehicleFactory.createVehicle("Car", "12345673");
-        Vehicle car4 = vehicleFactory.createVehicle("Car", "12345438");
-        Vehicle car5 = vehicleFactory.createVehicle("Car", "1233678");
+        Vehicle car1 = vehicleFactory.createVehicle("Car", "111");
+        Vehicle car2 = vehicleFactory.createVehicle("Car", "222");
+        Vehicle car3 = vehicleFactory.createVehicle("Car", "333");
+        Vehicle car4 = vehicleFactory.createVehicle("Car", "444");
 
         Vehicle motorcycle = vehicleFactory.createVehicle("Motorcycle", "1234");
-
         Vehicle truck = vehicleFactory.createVehicle("Truck", "178");
 
         parkingLot.enter(car1);
