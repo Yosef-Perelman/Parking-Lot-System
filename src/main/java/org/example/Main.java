@@ -18,12 +18,17 @@ public class Main {
         Vehicle truck = vehicleFactory.createVehicle("Truck", "178");
 
         parkingLot.enter(car1);
+        parkingLot.enter(motorcycle);
         parkingLot.enter(car2);
+        parkingLot.enter(truck);
         parkingLot.enter(car3);
         parkingLot.enter(car4);
         parkingLot.leave(car1);
         parkingLot.enter(car4);
-        parkingLot.enter(motorcycle);
-        parkingLot.enter(truck);
+        parkingLot.leave(truck);
+        parkingLot.leave(car2);
+        parkingLot.leave(car3);
+        parkingLot.leave(car4);
+        parkingLot.leave(motorcycle);
     }
 }

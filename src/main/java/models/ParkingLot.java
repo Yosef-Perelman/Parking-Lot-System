@@ -38,7 +38,11 @@ public class ParkingLot {
 
     public static ParkingLot getInstance(){
         if (parkingLot == null){
-            parkingLot = new ParkingLot();
+            try {
+                parkingLot = new ParkingLot();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return parkingLot;
     }
@@ -69,23 +73,32 @@ public class ParkingLot {
     // *** Methods for entering and leaving the parking lot *** //
 
     public synchronized boolean enter(Vehicle vehicle) {
-        if (!availableParkingSpaces.get(vehicle.getType()).isEmpty()) {
-            // Get some random parking space from the available list
-            Map.Entry<Integer, ParkingSpace> someAvailablePlace = availableParkingSpaces.get(vehicle.getType()).entrySet().iterator().next();
-            actions.enter(vehicle, someAvailablePlace.getKey(), someAvailablePlace.getValue());
-            System.out.println("The " + vehicle.getType() + " with number " + vehicle.getNumber() + " park good in park number " + occupiedParkingSpaces.get(vehicle.getType()).get(vehicle.getNumber()).getId());
-            return true;
-        } else {
-            System.out.println("Theres no more spaces for " + vehicle.getType() + "s. Try again later.");
+        try {
+            if (!availableParkingSpaces.get(vehicle.getType()).isEmpty()) {
+                // Get some random parking space from the available list
+                Map.Entry<Integer, ParkingSpace> someAvailablePlace = availableParkingSpaces.get(vehicle.getType()).entrySet().iterator().next();
+                actions.enter(vehicle, someAvailablePlace.getKey(), someAvailablePlace.getValue());
+                System.out.println("The " + vehicle.getType() + " with number " + vehicle.getNumber() + " was parked well in parking space number " + occupiedParkingSpaces.get(vehicle.getType()).get(vehicle.getNumber()).getId());
+                return true;
+            } else {
+                System.out.println("Theres no more spaces for " + vehicle.getType() + "s. Try again later.");
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
 
-    public synchronized void leave(Vehicle vehicle){
-        ParkingSpace spaceOfTheCar = occupiedParkingSpaces.get(vehicle.getType()).get(vehicle.getNumber());
-        actions.leave(vehicle, spaceOfTheCar);
-        money += vehicle.getPaymentMethod().calculatePayment(calculateTime(vehicle.getEnterTime()));
-        System.out.println("The " + vehicle.getType() + " with number " + vehicle.getNumber() + " leaving the park. The amount of money right now is " + getMoney());
+    public synchronized void leave(Vehicle vehicle) {
+        try {
+            ParkingSpace spaceOfTheCar = occupiedParkingSpaces.get(vehicle.getType()).get(vehicle.getNumber());
+            actions.leave(vehicle, spaceOfTheCar);
+            money += vehicle.getPaymentMethod().calculatePayment(calculateTime(vehicle.getEnterTime()));
+            System.out.println("The " + vehicle.getType() + " with number " + vehicle.getNumber() + " leaving the park. The amount of money right now is " + getMoney());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
