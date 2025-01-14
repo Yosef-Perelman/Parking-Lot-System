@@ -2,5 +2,5 @@ package interfaces;
 
 public interface PaymentMethod {
 
-    void calculatePayment();
+    int calculatePayment(double time);
 }
