@@ -70,6 +70,7 @@ public class ParkingLot {
 
     public synchronized boolean enter(Vehicle vehicle) {
         if (!availableParkingSpaces.get(vehicle.getType()).isEmpty()) {
+            // Get some random parking space from the available list
             Map.Entry<Integer, ParkingSpace> someAvailablePlace = availableParkingSpaces.get(vehicle.getType()).entrySet().iterator().next();
             actions.enter(vehicle, someAvailablePlace.getKey(), someAvailablePlace.getValue());
             System.out.println("The " + vehicle.getType() + " with number " + vehicle.getNumber() + " park good in park number " + occupiedParkingSpaces.get(vehicle.getType()).get(vehicle.getNumber()).getId());
