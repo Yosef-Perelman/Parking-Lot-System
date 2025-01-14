@@ -23,8 +23,8 @@ In addition, to make it simple and understandable, it has a separate class that 
 #### A diagram of the system attached to the repo.
 
 ### To run the system there are two options: 
-#### First, is to download the jar file, and then enter the terminal from the directory where the jar file in it, and run the command "java -jar ParkingLotSystem.jar".
+#### First, download the jar file and enter the terminal from the directory where the jar file in it, and run the command "java -jar ParkingLotSystem.jar".
 #### This will run main class with a basic operations on the system.
-#### Second, and especially if you want to make changes and tests, you can clone the repo.
+#### Second, and especially if you want to make changes and tests, clone the repo to your IDE.
 
 -(I used maven version 3.3.9, junit version 5, and jdk 22).
