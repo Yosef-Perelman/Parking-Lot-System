@@ -1,14 +1,20 @@
 package models;
 
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
+import static org.junit.jupiter.api.Assertions.*;
+
 import vehicles.Vehicle;
 import vehicles.VehicleFactory;
 
-import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ParkingLotTest {
 
     @Test
+    @Order(1)
     void getInstance(){
         ParkingLot parkingLot1 = ParkingLot.getInstance();
         ParkingLot parkingLot2 = ParkingLot.getInstance();
@@ -16,6 +22,7 @@ class ParkingLotTest {
     }
 
     @Test
+    @Order(2)
     void initParkingLot(){
         ParkingLot parkingLot = ParkingLot.getInstance();
         assertEquals(3, parkingLot.getAvailableParkingSpaces().get("Car").size());
@@ -29,6 +36,7 @@ class ParkingLotTest {
 
 
     @Test
+    @Order(3)
     void enterAndLeave() {
         ParkingLot parkingLot = ParkingLot.getInstance();
         VehicleFactory vehicleFactory = new VehicleFactory();
