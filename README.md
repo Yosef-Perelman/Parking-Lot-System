@@ -27,4 +27,4 @@ First, download the jar file and enter the terminal from the directory where the
 This will run main class with a basic operations on the system.
 Second, and especially if you want to make changes and tests, clone the repo to your IDE.
 
--(I used maven version 3.3.9, junit version 5, and jdk 22).
+- (I used maven version 3.3.9, junit version 5, and jdk 22).
