@@ -16,7 +16,7 @@ In addition, to make it simple and understandable, it has a separate class that 
 
 - (I initialized the number of parking spaces with a low generic number to test the case that the parking spaces ran out. It can be easily changed).
 
-- To deal with a situation where multiple cars are trying to perform actions at the same time, I made the "enter" and 'leave" methods synchronized.
+- To deal with a situation where multiple cars are trying to perform actions at the same time, I made the "enter" and "leave" methods synchronized.
 
 #### I added tests with junit.
 
